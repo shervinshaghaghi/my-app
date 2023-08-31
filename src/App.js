@@ -1,10 +1,10 @@
-
 import React from 'react';
-import Header from './Components/Header.JS';
-import Main from './Components/Main';
-import Nav from './Components/Nav.JS';
-import Footer from './Components/Footer';
+import Header from './Components/Header.js'
+import Main from './Components/Main.js';
+import Nav from './Components/Nav.js';
+import Footer from './Components/Footer.js';
 import './App.css';
+import './Styles.css';
 
 function App() {
   return (
