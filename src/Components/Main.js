@@ -1,15 +1,20 @@
 import React from 'react';
-import '../Styles.css';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage'; // Import the homepage component
+import Menu from './Menu';
+import About from './About';
+import Contact from './Contact';
 
 function Main() {
   return (
     <main>
-      <section className="hero">
-        <img src="https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-pizzas_v269Oq2LM.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674426273890" alt="Restaurant Image" />
-        <h1>Little Lemon Restaurant</h1>
-        <p>Delicious Italian food in the heart of the city</p>
-        <button>Reserve a Table</button>
-      </section>
+      <Routes>
+        <Route path="/" element={<HomePage />} /> {/* Render HomePage as the root route */}
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        {/* Add more routes for other pages */}
+      </Routes>
     </main>
   );
 }
