@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchAPI, submitAPI } from "./Api"; // Import fetchAPI and submitAPI
+import { fetchAPI, submitAPI } from "./Api";
 
 function BookingForm({ onBookingSuccess }) {
   const [formData, setFormData] = useState({
@@ -10,18 +10,34 @@ function BookingForm({ onBookingSuccess }) {
   });
 
   const [availableTimes, setAvailableTimes] = useState([]);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const validateForm = () => {
+    // Custom validation logic
+    const isValid =
+      formData.date !== "" &&
+      formData.time !== "" &&
+      formData.guests !== "" &&
+      formData.guests >= 1; // Additional validation for guests
+
+    setIsFormValid(isValid);
+  };
+
+  useEffect(() => {
+    validateForm(); // Validate the form whenever inputs change
+  }, [formData]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await submitAPI(formData); // Replace with your actual API call
+      const response = await submitAPI(formData);
       if (response === true) {
-        onBookingSuccess(); // Notify the parent component about the successful booking
+        onBookingSuccess();
       } else {
         console.error("Booking failed");
       }
@@ -85,6 +101,7 @@ function BookingForm({ onBookingSuccess }) {
             value={formData.guests}
             onChange={handleChange}
             required
+            min="1"
           />
         </div>
         <div>
@@ -98,7 +115,9 @@ function BookingForm({ onBookingSuccess }) {
           />
         </div>
         <div>
-          <button type="submit">Submit Reservation</button>
+          <button type="submit" disabled={!isFormValid}>
+            Submit Reservation
+          </button>
         </div>
       </form>
     </div>
